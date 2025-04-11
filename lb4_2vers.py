@@ -9,7 +9,6 @@ df = pd.read_csv('dataset_simple.csv')
 X = torch.FloatTensor(StandardScaler().fit_transform(df.iloc[:, :2].values))
 y = torch.FloatTensor(df.iloc[:, 2].values).reshape(-1, 1)  # метки 0 и 1
 
-# Архитектура сети
 class NNet(nn.Module):
     def __init__(self, in_size, hidden_size, out_size):
         super(NNet, self).__init__()
@@ -26,12 +25,12 @@ class NNet(nn.Module):
 # Параметры
 inputSize = X.shape[1]
 hiddenSizes = 100
-outputSize = 1  # один выход (бинарная классификация)
+outputSize = 1  
 
 # Сеть, функция потерь, оптимизатор
 net = NNet(inputSize, hiddenSizes, outputSize)
 lossFn = nn.BCELoss()  # Binary Cross-Entropy
-optimizer = torch.optim.Adam(net.parameters(), lr=0.001)  # Adam работает лучше SGD
+optimizer = torch.optim.Adam(net.parameters(), lr=0.001) 
 pred = net(X)
 # Обучение
 epochs = 1000
@@ -51,7 +50,8 @@ with torch.no_grad():
     pred_labels = (pred > 0.5).float()  # порог 0.5
     accuracy = (pred_labels == y).float().mean()
     print(f"\nТочность: {accuracy.item() * 100:.2f}%")
-    
+
+# итоговая классификация
 maxPred = torch.max(pred)
 maxP = float(maxPred)
 minPred = torch.min(pred)
