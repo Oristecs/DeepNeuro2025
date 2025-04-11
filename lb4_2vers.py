@@ -16,7 +16,7 @@ class NNet(nn.Module):
             nn.Linear(in_size, hidden_size),
             nn.Tanh(),
             nn.Linear(hidden_size, out_size),
-            nn.Sigmoid()  # выход в [0, 1]
+            nn.Sigmoid()  
         )
     
     def forward(self, X):
@@ -29,7 +29,7 @@ outputSize = 1
 
 # Сеть, функция потерь, оптимизатор
 net = NNet(inputSize, hiddenSizes, outputSize)
-lossFn = nn.BCELoss()  # Binary Cross-Entropy
+lossFn = nn.BCELoss()  
 optimizer = torch.optim.Adam(net.parameters(), lr=0.001) 
 pred = net(X)
 # Обучение
